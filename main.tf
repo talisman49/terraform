@@ -15,8 +15,12 @@ resource "docker_image" "nginx" {
 }
 
 resource "docker_container" "nginx" {
-  image = docker_image.nginx.latest
-  name  = "tutorial"
+  image       = docker_image.nginx.latest
+  credentials = variables(var.credentials_file)
+  project     = var.project
+  region      = var.region
+  zone        = var.zone
+  name        = "tutorial"
   ports {
     internal = 80
     external = 9090
